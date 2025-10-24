@@ -27,6 +27,7 @@ export class NicoChat implements INodeType {
                                 required: true,
                         },
                 ],
+                usableAsTool: true,
                 properties: [
                         {
                                 displayName: 'Resource',
@@ -35,14 +36,14 @@ export class NicoChat implements INodeType {
                                 noDataExpression: true,
                                 options: [
                                         {
-                                                name: 'Subscriber',
-                                                value: 'subscriber',
-                                                description: 'Operações com contatos (subscribers)',
+                                                name: 'Broadcast',
+                                                value: 'broadcast',
+                                                description: 'Disparos em massa',
                                         },
                                         {
-                                                name: 'Tag',
-                                                value: 'tag',
-                                                description: 'Operações com tags',
+                                                name: 'Conversation',
+                                                value: 'conversation',
+                                                description: 'Histórico de conversas',
                                         },
                                         {
                                                 name: 'Custom Field',
@@ -55,19 +56,19 @@ export class NicoChat implements INodeType {
                                                 description: 'Enviar fluxos para contatos',
                                         },
                                         {
-                                                name: 'Broadcast',
-                                                value: 'broadcast',
-                                                description: 'Disparos em massa',
+                                                name: 'Subscriber',
+                                                value: 'subscriber',
+                                                description: 'Operações com contatos (subscribers)',
+                                        },
+                                        {
+                                                name: 'Tag',
+                                                value: 'tag',
+                                                description: 'Operações com tags',
                                         },
                                         {
                                                 name: 'WhatsApp Template',
                                                 value: 'whatsappTemplate',
                                                 description: 'Templates do WhatsApp',
-                                        },
-                                        {
-                                                name: 'Conversation',
-                                                value: 'conversation',
-                                                description: 'Histórico de conversas',
                                         },
                                 ],
                                 default: 'subscriber',
@@ -94,6 +95,12 @@ export class NicoChat implements INodeType {
                                                 action: 'Criar contato',
                                         },
                                         {
+                                                name: 'Delete',
+                                                value: 'delete',
+                                                description: 'Deletar um contato',
+                                                action: 'Deletar contato',
+                                        },
+                                        {
                                                 name: 'Get',
                                                 value: 'get',
                                                 description: 'Buscar um contato específico',
@@ -110,12 +117,6 @@ export class NicoChat implements INodeType {
                                                 value: 'update',
                                                 description: 'Atualizar um contato',
                                                 action: 'Atualizar contato',
-                                        },
-                                        {
-                                                name: 'Delete',
-                                                value: 'delete',
-                                                description: 'Deletar um contato',
-                                                action: 'Deletar contato',
                                         },
                                 ],
                                 default: 'create',
@@ -168,6 +169,7 @@ export class NicoChat implements INodeType {
                                 displayName: 'Email',
                                 name: 'email',
                                 type: 'string',
+                                                                                                                                                                                                                                                                placeholder: 'name@email.com',
                                 displayOptions: {
                                         show: {
                                                 resource: ['subscriber'],
@@ -221,6 +223,7 @@ export class NicoChat implements INodeType {
                                                 displayName: 'Email',
                                                 name: 'email',
                                                 type: 'string',
+                                                                                                                                                                                                                                                                                                                                                                                                placeholder: 'name@email.com',
                                                 default: '',
                                         },
                                         {
@@ -255,7 +258,7 @@ export class NicoChat implements INodeType {
                                                         maxValue: 1000,
                                                 },
                                                 default: 50,
-                                                description: 'Número máximo de resultados a retornar',
+                                                description: 'Max number of results to return',
                                         },
                                         {
                                                 displayName: 'Page',
@@ -291,12 +294,6 @@ export class NicoChat implements INodeType {
                                                 action: 'Adicionar tag ao contato',
                                         },
                                         {
-                                                name: 'Remove from Subscriber',
-                                                value: 'removeFromSubscriber',
-                                                description: 'Remover tag de um contato',
-                                                action: 'Remover tag do contato',
-                                        },
-                                        {
                                                 name: 'Create',
                                                 value: 'create',
                                                 description: 'Criar uma nova tag',
@@ -313,6 +310,12 @@ export class NicoChat implements INodeType {
                                                 value: 'getMany',
                                                 description: 'Listar tags',
                                                 action: 'Listar tags',
+                                        },
+                                        {
+                                                name: 'Remove From Subscriber',
+                                                value: 'removeFromSubscriber',
+                                                description: 'Remover tag de um contato',
+                                                action: 'Remover tag do contato',
                                         },
                                 ],
                                 default: 'addToSubscriber',
@@ -368,6 +371,10 @@ export class NicoChat implements INodeType {
                                                 displayName: 'Limit',
                                                 name: 'limit',
                                                 type: 'number',
+                                                                                                                                                                                                                                                                                                                                                                                                typeOptions: {
+                                                                                                                                                                                                                                                                                                                                                                                                        minValue: 1,
+                                                                                                                                                                                                                                                                                                                                                                                                },
+                                                                                                                                                                                                                                                                                                                                                                                                description: 'Max number of results to return',
                                                 default: 50,
                                         },
                                         {
@@ -696,7 +703,7 @@ export class NicoChat implements INodeType {
                                                 name: 'Get History',
                                                 value: 'getHistory',
                                                 description: 'Obter histórico de conversa',
-                                                action: 'Obter histórico',
+                                                action: 'Obter hist rico',
                                         },
                                 ],
                                 default: 'getHistory',
@@ -723,6 +730,9 @@ export class NicoChat implements INodeType {
                                 displayName: 'Limit',
                                 name: 'limit',
                                 type: 'number',
+                                                                                                                                                                                                                                                                typeOptions: {
+                                                                                                                                                                                                                                                                        minValue: 1,
+                                                                                                                                                                                                                                                                },
                                 displayOptions: {
                                         show: {
                                                 resource: ['conversation'],
@@ -730,7 +740,7 @@ export class NicoChat implements INodeType {
                                         },
                                 },
                                 default: 50,
-                                description: 'Número de mensagens a retornar',
+                                description: 'Max number of results to return',
                         },
                 ],
         };
@@ -1016,7 +1026,7 @@ export class NicoChat implements INodeType {
                                                 if (templateParameters) {
                                                         try {
                                                                 body.parameters = JSON.parse(templateParameters);
-                                                        } catch (error) {
+                                                        } catch {
                                                                 throw new NodeOperationError(
                                                                         this.getNode(),
                                                                         'Template parameters must be valid JSON',

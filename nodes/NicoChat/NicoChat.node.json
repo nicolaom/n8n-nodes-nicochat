@@ -1,0 +1,20 @@
+{
+	"node": "n8n-nodes-base.NicoChat",
+	"nodeVersion": "1.0",
+	"codexVersion": "1.0",
+	"categories": [
+		"Communication"
+	],
+	"resources": {
+		"credentialDocumentation": [
+			{
+				"url": "https://app.nicochat.com.br/api"
+			}
+		],
+		"primaryDocumentation": [
+			{
+				"url": "https://app.nicochat.com.br"
+			}
+		]
+	}
+}

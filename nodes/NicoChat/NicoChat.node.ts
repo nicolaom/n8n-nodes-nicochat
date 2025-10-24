@@ -1,6 +1,8 @@
 import {
         IExecuteFunctions,
+        ILoadOptionsFunctions,
         INodeExecutionData,
+        INodePropertyOptions,
         INodeType,
         INodeTypeDescription,
         IDataObject,
@@ -519,9 +521,12 @@ export class NicoChat implements INodeType {
 
                         // Flow: flow name
                         {
-                                displayName: 'Flow Name',
+                                displayName: 'Flow Name or ID',
                                 name: 'flowName',
-                                type: 'string',
+                                type: 'options',
+                                typeOptions: {
+                                        loadOptionsMethod: 'getFlows',
+                                },
                                 required: true,
                                 displayOptions: {
                                         show: {
@@ -530,7 +535,7 @@ export class NicoChat implements INodeType {
                                         },
                                 },
                                 default: '',
-                                description: 'Nome do fluxo a enviar',
+                                description: 'Choose from the list, or specify an ID using an <a href="https://docs.n8n.io/code/expressions/">expression</a>',
                         },
 
                         // ===============================
@@ -745,6 +750,42 @@ export class NicoChat implements INodeType {
                 ],
         };
 
+        methods = {
+                loadOptions: {
+                        async getFlows(this: ILoadOptionsFunctions): Promise<INodePropertyOptions[]> {
+                                const returnData: INodePropertyOptions[] = [];
+                                try {
+                                        const responseData = await this.helpers.httpRequestWithAuthentication.call(
+                                                this,
+                                                'nicoChatApi',
+                                                {
+                                                        method: 'GET',
+                                                        url: 'https://app.nicochat.com.br/api/flow/subflows',
+                                                        json: true,
+                                                },
+                                        );
+
+                                        const flows = (responseData as IDataObject).data as IDataObject[];
+                                        if (flows && Array.isArray(flows)) {
+                                                for (const flow of flows) {
+                                                        const flowId = flow.flow_id || flow.id || flow._id;
+                                                        returnData.push({
+                                                                name: flow.name as string,
+                                                                value: flowId as string,
+                                                        });
+                                                }
+                                        }
+                                } catch (error) {
+                                        throw new NodeOperationError(
+                                                this.getNode(),
+                                                `Erro ao carregar fluxos: ${error.message}`,
+                                        );
+                                }
+                                return returnData;
+                        },
+                },
+        };
+
         async execute(this: IExecuteFunctions): Promise<INodeExecutionData[][]> {
                 const items = this.getInputData();
                 const returnData: IDataObject[] = [];
@@ -771,7 +812,7 @@ export class NicoChat implements INodeType {
                                                         'nicoChatApi',
                                                         {
                                                                 method: 'POST',
-                                                                url: 'https://app.nicochat.com.br/api/flow/create-bot-user',
+                                                                url: 'https://app.nicochat.com.br/api/subscriber/create',
                                                                 body,
                                                                 json: true,
                                                         },
@@ -785,7 +826,7 @@ export class NicoChat implements INodeType {
                                                         'nicoChatApi',
                                                         {
                                                                 method: 'GET',
-                                                                url: 'https://app.nicochat.com.br/api/flow/bot-user-info',
+                                                                url: 'https://app.nicochat.com.br/api/subscriber/get-info',
                                                                 qs: { user_ns: userNs },
                                                                 json: true,
                                                         },
@@ -803,7 +844,7 @@ export class NicoChat implements INodeType {
                                                         'nicoChatApi',
                                                         {
                                                                 method: 'GET',
-                                                                url: 'https://app.nicochat.com.br/api/flow/bot-users',
+                                                                url: 'https://app.nicochat.com.br/api/subscribers',
                                                                 qs,
                                                                 json: true,
                                                         },
@@ -820,8 +861,8 @@ export class NicoChat implements INodeType {
                                                         this,
                                                         'nicoChatApi',
                                                         {
-                                                                method: 'POST',
-                                                                url: 'https://app.nicochat.com.br/api/flow/update-bot-user',
+                                                                method: 'PUT',
+                                                                url: 'https://app.nicochat.com.br/api/subscriber/update',
                                                                 body,
                                                                 json: true,
                                                         },
@@ -835,7 +876,7 @@ export class NicoChat implements INodeType {
                                                         'nicoChatApi',
                                                         {
                                                                 method: 'DELETE',
-                                                                url: 'https://app.nicochat.com.br/api/flow/delete-bot-user',
+                                                                url: 'https://app.nicochat.com.br/api/subscriber/delete',
                                                                 body: { user_ns: userNs },
                                                                 json: true,
                                                         },
@@ -852,7 +893,7 @@ export class NicoChat implements INodeType {
                                                         'nicoChatApi',
                                                         {
                                                                 method: 'POST',
-                                                                url: 'https://app.nicochat.com.br/api/flow/bot-user-add-tag-by-name',
+                                                                url: 'https://app.nicochat.com.br/api/subscriber/add-tag-by-name',
                                                                 body: { user_ns: userNs, name: tagName },
                                                                 json: true,
                                                         },
@@ -866,8 +907,8 @@ export class NicoChat implements INodeType {
                                                         this,
                                                         'nicoChatApi',
                                                         {
-                                                                method: 'POST',
-                                                                url: 'https://app.nicochat.com.br/api/flow/bot-user-remove-tag-by-name',
+                                                                method: 'DELETE',
+                                                                url: 'https://app.nicochat.com.br/api/subscriber/remove-tag-by-name',
                                                                 body: { user_ns: userNs, name: tagName },
                                                                 json: true,
                                                         },
@@ -942,8 +983,8 @@ export class NicoChat implements INodeType {
                                                         this,
                                                         'nicoChatApi',
                                                         {
-                                                                method: 'POST',
-                                                                url: 'https://app.nicochat.com.br/api/flow/bot-user-set-user-field-by-name',
+                                                                method: 'PUT',
+                                                                url: 'https://app.nicochat.com.br/api/subscriber/set-user-field-by-name',
                                                                 body: { user_ns: userNs, field_name: fieldName, field_value: fieldValue },
                                                                 json: true,
                                                         },
@@ -953,15 +994,15 @@ export class NicoChat implements INodeType {
                                 } else if (resource === 'flow') {
                                         if (operation === 'sendToSubscriber') {
                                                 const userNs = this.getNodeParameter('userNs', i) as string;
-                                                const flowName = this.getNodeParameter('flowName', i) as string;
+                                                const flowId = this.getNodeParameter('flowName', i) as string;
 
                                                 const responseData = await this.helpers.httpRequestWithAuthentication.call(
                                                         this,
                                                         'nicoChatApi',
                                                         {
                                                                 method: 'POST',
-                                                                url: 'https://app.nicochat.com.br/api/flow/bot-user-send-sub-flow-by-flow-name',
-                                                                body: { user_ns: userNs, flow_name: flowName },
+                                                                url: 'https://app.nicochat.com.br/api/subscriber/send-sub-flow',
+                                                                body: { user_ns: userNs, flow_id: flowId },
                                                                 json: true,
                                                         },
                                                 );
@@ -972,7 +1013,7 @@ export class NicoChat implements INodeType {
                                                         'nicoChatApi',
                                                         {
                                                                 method: 'GET',
-                                                                url: 'https://app.nicochat.com.br/api/flow/sub-flows',
+                                                                url: 'https://app.nicochat.com.br/api/flow/subflows',
                                                                 json: true,
                                                         },
                                                 );
@@ -990,7 +1031,7 @@ export class NicoChat implements INodeType {
                                                         'nicoChatApi',
                                                         {
                                                                 method: 'POST',
-                                                                url: 'https://app.nicochat.com.br/api/flow/bot-user-broadcast',
+                                                                url: 'https://app.nicochat.com.br/api/subscriber/broadcast',
                                                                 body: { user_ns_list: users, content: message },
                                                                 json: true,
                                                         },
@@ -1005,7 +1046,7 @@ export class NicoChat implements INodeType {
                                                         'nicoChatApi',
                                                         {
                                                                 method: 'POST',
-                                                                url: 'https://app.nicochat.com.br/api/flow/bot-user-broadcast-by-tag',
+                                                                url: 'https://app.nicochat.com.br/api/subscriber/broadcast-by-tag',
                                                                 body: { tag_name: tagName, content: message },
                                                                 json: true,
                                                         },
@@ -1039,7 +1080,7 @@ export class NicoChat implements INodeType {
                                                         'nicoChatApi',
                                                         {
                                                                 method: 'POST',
-                                                                url: 'https://app.nicochat.com.br/api/flow/bot-user-send-whatsapp-template',
+                                                                url: 'https://app.nicochat.com.br/api/subscriber/send-whatsapp-template',
                                                                 body,
                                                                 json: true,
                                                         },
@@ -1056,7 +1097,7 @@ export class NicoChat implements INodeType {
                                                         'nicoChatApi',
                                                         {
                                                                 method: 'GET',
-                                                                url: 'https://app.nicochat.com.br/api/flow/bot-user-chat-messages',
+                                                                url: 'https://app.nicochat.com.br/api/subscriber/chat-messages',
                                                                 qs: { user_ns: userNs, limit },
                                                                 json: true,
                                                         },

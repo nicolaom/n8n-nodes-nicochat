@@ -443,9 +443,12 @@ export class NicoChat implements INodeType {
 
                         // Custom Field: field name
                         {
-                                displayName: 'Field Name',
+                                displayName: 'Field Name or ID',
                                 name: 'fieldName',
-                                type: 'string',
+                                type: 'options',
+                                typeOptions: {
+                                        loadOptionsMethod: 'getCustomFields',
+                                },
                                 required: true,
                                 displayOptions: {
                                         show: {
@@ -454,7 +457,7 @@ export class NicoChat implements INodeType {
                                         },
                                 },
                                 default: '',
-                                description: 'Nome do campo personalizado',
+                                description: 'Choose from the list, or specify an ID using an <a href="https://docs.n8n.io/code/expressions/">expression</a>',
                         },
 
                         // Custom Field: field value
@@ -765,12 +768,20 @@ export class NicoChat implements INodeType {
                                                 },
                                         );
 
-                                        const flows = (responseData as IDataObject).data as IDataObject[];
-                                        if (flows && Array.isArray(flows)) {
-                                                for (const flow of flows) {
-                                                        const flowId = flow.flow_id || flow.id || flow._id;
+                                        let flows: IDataObject[] = [];
+                                        
+                                        if (Array.isArray(responseData)) {
+                                                flows = responseData;
+                                        } else if ((responseData as IDataObject).data && Array.isArray((responseData as IDataObject).data)) {
+                                                flows = (responseData as IDataObject).data as IDataObject[];
+                                        }
+
+                                        for (const flow of flows) {
+                                                const flowId = flow.flow_id || flow.id || flow._id;
+                                                const flowName = flow.name || flow.flow_name || 'Unnamed Flow';
+                                                if (flowId) {
                                                         returnData.push({
-                                                                name: flow.name as string,
+                                                                name: flowName as string,
                                                                 value: flowId as string,
                                                         });
                                                 }
@@ -779,6 +790,44 @@ export class NicoChat implements INodeType {
                                         throw new NodeOperationError(
                                                 this.getNode(),
                                                 `Erro ao carregar fluxos: ${error.message}`,
+                                        );
+                                }
+                                return returnData;
+                        },
+                        async getCustomFields(this: ILoadOptionsFunctions): Promise<INodePropertyOptions[]> {
+                                const returnData: INodePropertyOptions[] = [];
+                                try {
+                                        const responseData = await this.helpers.httpRequestWithAuthentication.call(
+                                                this,
+                                                'nicoChatApi',
+                                                {
+                                                        method: 'GET',
+                                                        url: 'https://app.nicochat.com.br/api/flow/user-fields',
+                                                        json: true,
+                                                },
+                                        );
+
+                                        let fields: IDataObject[] = [];
+                                        
+                                        if (Array.isArray(responseData)) {
+                                                fields = responseData;
+                                        } else if ((responseData as IDataObject).data && Array.isArray((responseData as IDataObject).data)) {
+                                                fields = (responseData as IDataObject).data as IDataObject[];
+                                        }
+
+                                        for (const field of fields) {
+                                                const fieldName = field.name || field.field_name;
+                                                if (fieldName) {
+                                                        returnData.push({
+                                                                name: fieldName as string,
+                                                                value: fieldName as string,
+                                                        });
+                                                }
+                                        }
+                                } catch (error) {
+                                        throw new NodeOperationError(
+                                                this.getNode(),
+                                                `Erro ao carregar campos personalizados: ${error.message}`,
                                         );
                                 }
                                 return returnData;

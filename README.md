@@ -111,14 +111,14 @@ Acesso ao histórico de conversas:
 
 - **Get History** - Obter histórico de conversa de um contato com filtros de data e paginação
 
-### 8. 🆕 NicoChat Trigger (Webhook)
+### 8. 🆕 Requisicao Externa NicoChat Trigger (Webhook)
 
-**Trigger node** para iniciar workflows automaticamente quando eventos acontecem no NicoChat.
+**Trigger node** para receber requisições externas do NicoChat via webhook.
 
 #### Como Configurar:
 
 1. **No n8n:**
-   - Adicione o node "NicoChat Trigger" ao seu workflow
+   - Adicione o node "Requisicao Externa NicoChat Trigger" ao seu workflow
    - O n8n irá gerar automaticamente uma URL de webhook
    - Copie essa URL (aparece no node após salvar o workflow)
 
@@ -128,39 +128,33 @@ Acesso ao histórico de conversas:
    - Configure:
      - **URL**: Cole a URL do webhook gerada pelo n8n
      - **Método**: POST
-     - **Corpo**: JSON com os dados que você quer enviar (ex: user_ns, tag, campo customizado, etc.)
+     - **Corpo**: JSON com os dados que você quer enviar
 
-3. **Eventos Suportados:**
-   - ✅ Todos os Eventos (padrão)
-   - ✅ Mensagem Recebida
-   - ✅ Resposta do Usuário
-   - ✅ Tag Adicionada
-   - ✅ Campo Atualizado
-   - ✅ Conversão
-   - ✅ Evento Customizado
+#### O que o Trigger Recebe:
 
-4. **Opções Avançadas:**
-   - **Responder ao Webhook**: Enviar resposta customizada de volta ao NicoChat
-   - **Validar Origem**: Verificar se a requisição vem do NicoChat
+O trigger recebe todos os dados enviados pelo NicoChat e disponibiliza em 3 campos:
+- **body**: Corpo da requisição (JSON enviado pelo NicoChat)
+- **headers**: Cabeçalhos HTTP
+- **query**: Parâmetros de URL (se houver)
 
 #### Exemplo de Uso:
 
-**Cenário**: Quando um usuário é marcado com a tag "Cliente VIP", adicionar no CRM.
+**Cenário**: Quando o NicoChat enviar dados de um novo contato, salvar no CRM.
 
 1. **NicoChat**: Bloco de Ação > Requisição API
    ```json
    {
-     "event_type": "tag_added",
      "user_ns": "{{user_ns}}",
-     "tag": "Cliente VIP",
-     "timestamp": "{{timestamp}}"
+     "nome": "{{nome}}",
+     "telefone": "{{telefone}}",
+     "email": "{{email}}"
    }
    ```
 
 2. **n8n Workflow**:
-   - NicoChat Trigger (recebe evento)
-   - HTTP Request (adiciona no CRM)
-   - NicoChat Node (envia confirmação ao cliente)
+   - Requisição Externa NicoChat (recebe dados)
+   - HTTP Request (salva no CRM)
+   - Email (envia notificação)
 
 ## Estrutura do Projeto
 

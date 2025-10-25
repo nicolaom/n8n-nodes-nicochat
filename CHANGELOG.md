@@ -5,6 +5,19 @@ Todas as mudanças notáveis deste projeto serão documentadas neste arquivo.
 O formato é baseado em [Keep a Changelog](https://keepachangelog.com/pt-BR/1.0.0/),
 e este projeto adere ao [Versionamento Semântico](https://semver.org/lang/pt-BR/).
 
+## [0.3.3] - 2025-10-25
+
+### Mudado
+- **BREAKING CHANGE**: Trigger simplificado para apenas receber requisições
+- Removidos filtros de eventos do trigger (não eram necessários)
+- Removidas opções avançadas (resposta customizada, validação de origem)
+- Nome alterado para "Requisicao Externa NicoChat Trigger" (sem acento, conforme padrão n8n)
+
+### Melhorado
+- Trigger muito mais simples e direto de usar
+- Apenas mostra a URL do webhook e recebe os dados (body, headers, query)
+- Código reduzido de 182 para 61 linhas
+
 ## [0.3.2] - 2025-10-25
 
 ### Adicionado

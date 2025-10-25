@@ -4,7 +4,7 @@
 
 This is a custom n8n node for integrating with the NicoChat API (https://app.nicochat.com.br/api). The node provides comprehensive functionality for managing WhatsApp contacts, tags, custom fields, flows, broadcasts, templates, and conversation history.
 
-## Project Status: ✅ Published to npm (v0.3.2)
+## Project Status: ✅ Published to npm (v0.3.3)
 
 Last updated: October 25, 2025
 
@@ -85,11 +85,10 @@ n8n-nodes-nicochat/
 7. **Conversation** (1 operation)
    - Get History (with date filters and pagination)
 
-8. **🆕 NicoChat Trigger** (webhook trigger)
-   - Webhook endpoint for receiving events from NicoChat
-   - Event filtering (message received, tag added, field updated, etc.)
-   - Customizable response to NicoChat
-   - No authentication required (webhook based)
+8. **🆕 Requisicao Externa NicoChat Trigger** (webhook trigger)
+   - Webhook endpoint simples para receber requisições do NicoChat
+   - Retorna body, headers e query da requisição
+   - Sem autenticação (baseado em webhook)
 
 ### Dynamic Features
 
@@ -161,6 +160,14 @@ This provides a better user experience by showing actual options instead of requ
 *No specific user preferences recorded yet*
 
 ## Recent Changes
+
+### October 25, 2025 - Version 0.3.3 Published to npm ✅
+- ✅ **Published to npm**: https://www.npmjs.com/package/n8n-nodes-nicochat
+- **BREAKING CHANGE**: Trigger simplificado drasticamente
+- Removidos filtros de eventos e opções avançadas do trigger
+- Agora é apenas um webhook simples que recebe dados (body, headers, query)
+- Nome alterado para "Requisicao Externa NicoChat Trigger" (conforme padrão n8n)
+- Código do trigger reduzido de 182 para 61 linhas
 
 ### October 25, 2025 - Version 0.3.2 Published to npm ✅
 - ✅ **Published to npm**: https://www.npmjs.com/package/n8n-nodes-nicochat

@@ -1,0 +1,44 @@
+
+ M package-lock.json
+ M package.json
+
+✔ Publish n8n-nodes-nicochat to npm? Yes
+ERROR npm warn publish npm auto-corrected some errors in your package.json when publishing.  Please run "npm pkg fix" to address these errors.
+npm warn publish errors corrected:
+npm warn publish "repository.url" was normalized to "git+https://github.com/nicochat/n8n-nodes-nicochat.git"
+npm notice
+npm notice 📦  n8n-nodes-nicochat@0.1.4
+npm notice Tarball Contents
+npm notice 1.0kB LICENSE.md
+npm notice 6.3kB README.md
+npm notice 1.4kB dist/credentials/nicochat.svg
+npm notice 379B dist/credentials/NicoChatApi.credentials.d.ts
+npm notice 1.3kB dist/credentials/NicoChatApi.credentials.js
+npm notice 753B dist/credentials/NicoChatApi.credentials.js.map
+npm notice 544B dist/nodes/NicoChat/NicoChat.node.d.ts
+npm notice 45.0kB dist/nodes/NicoChat/NicoChat.node.js
+npm notice 23.4kB dist/nodes/NicoChat/NicoChat.node.js.map
+npm notice 463B dist/nodes/NicoChat/NicoChat.node.json
+npm notice 1.4kB dist/nodes/NicoChat/nicochat.svg
+npm notice 1.4kB dist/package.json
+npm notice 30.9kB dist/tsconfig.tsbuildinfo
+npm notice 1.7kB package.json
+npm notice Tarball Details
+npm notice name: n8n-nodes-nicochat
+npm notice version: 0.1.4
+npm notice filename: n8n-nodes-nicochat-0.1.4.tgz
+npm notice package size: 23.1 kB
+npm notice unpacked size: 116.0 kB
+npm notice shasum: 665428f4e7d093fb031a743e542676180453db78
+npm notice integrity: sha512-AEJyA5oIyssYA[...]yUw/MVaqgZlaQ==
+npm notice total files: 14
+npm notice
+npm notice Publishing to https://registry.npmjs.org/ with tag latest and default access
+npm error code E403
+npm error 403 403 Forbidden - PUT https://registry.npmjs.org/n8n-nodes-nicochat - You cannot publish over the previously published versions: 0.1.4.
+npm error 403 In most cases, you or one of your dependencies are requesting
+npm error 403 a package version that is forbidden by your security policy, or
+npm error 403 on a server you do not have access to.
+npm error A complete log of this run can be found in: /home/runner/.npm/_logs/2025-10-25T12_10_34_279Z-debug-0.log
+
+Rolling back changes...

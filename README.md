@@ -1,10 +1,16 @@
 # n8n-nodes-nicochat
 
+[![npm version](https://badge.fury.io/js/n8n-nodes-nicochat.svg)](https://www.npmjs.com/package/n8n-nodes-nicochat)
+[![License: MIT](https://img.shields.io/badge/License-MIT-yellow.svg)](https://opensource.org/licenses/MIT)
+[![n8n](https://img.shields.io/badge/n8n-community%20node-00D4AA)](https://n8n.io)
+
 Custom n8n node para integração com a API NicoChat (https://app.nicochat.com.br/api).
+
+> 🚀 **Open Source** - Contribuições são bem-vindas! Veja [CONTRIBUTING.md](CONTRIBUTING.md)
 
 ## Instalação
 
-### Opção 1: Via npm (quando publicado)
+### Opção 1: Via npm
 ```bash
 npm install n8n-nodes-nicochat
 ```

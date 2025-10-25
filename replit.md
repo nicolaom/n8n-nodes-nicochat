@@ -4,9 +4,12 @@
 
 This is a custom n8n node for integrating with the NicoChat API (https://app.nicochat.com.br/api). The node provides comprehensive functionality for managing WhatsApp contacts, tags, custom fields, flows, broadcasts, templates, and conversation history.
 
-## Project Status: ✅ Published to npm (v0.3.0)
+## Project Status: ✅ Published to npm (v0.3.1)
 
 Last updated: October 25, 2025
+
+**🔗 Repository**: https://github.com/nicolaom/n8n-nodes-nicochat (aguardando push inicial)
+**📦 npm**: https://www.npmjs.com/package/n8n-nodes-nicochat
 
 ## What This Node Does
 
@@ -158,6 +161,14 @@ This provides a better user experience by showing actual options instead of requ
 *No specific user preferences recorded yet*
 
 ## Recent Changes
+
+### October 25, 2025 - Version 0.3.1 Published to npm ✅
+- ✅ **Fix**: Corrigida URL do repositório GitHub de `nicochat` para `nicolaom`
+- ✅ **Published to npm**: https://www.npmjs.com/package/n8n-nodes-nicochat
+- Adicionado campo `bugs` no package.json apontando para GitHub Issues
+- Criado arquivo CONTRIBUTING.md com guia para contribuidores
+- Criado arquivo GITHUB_SETUP.md com instruções para publicar no GitHub
+- Preparado para publicação open-source no GitHub
 
 ### October 25, 2025 - Version 0.3.0 Published to npm ✅ 🎉
 - ✅ **Major Feature**: Added NicoChat Trigger (webhook trigger node)

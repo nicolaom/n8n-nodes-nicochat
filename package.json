@@ -1,6 +1,6 @@
 {
         "name": "n8n-nodes-nicochat",
-        "version": "0.3.0",
+        "version": "0.3.1",
         "description": "n8n node para integração com a API do NicoChat",
         "license": "MIT",
         "homepage": "https://app.nicochat.com.br",
@@ -17,7 +17,10 @@
         },
         "repository": {
                 "type": "git",
-                "url": "https://github.com/nicochat/n8n-nodes-nicochat.git"
+                "url": "https://github.com/nicolaom/n8n-nodes-nicochat.git"
+        },
+        "bugs": {
+                "url": "https://github.com/nicolaom/n8n-nodes-nicochat/issues"
         },
         "scripts": {
                 "build": "n8n-node build",

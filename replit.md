@@ -4,9 +4,9 @@
 
 This is a custom n8n node for integrating with the NicoChat API (https://app.nicochat.com.br/api). The node provides comprehensive functionality for managing WhatsApp contacts, tags, custom fields, flows, broadcasts, templates, and conversation history.
 
-## Project Status: ✅ Complete
+## Project Status: ✅ Published to npm (v0.2.0)
 
-Last updated: October 24, 2025
+Last updated: October 25, 2025
 
 ## What This Node Does
 
@@ -57,12 +57,13 @@ n8n-nodes-nicochat/
 
 ### Resources Implemented
 
-1. **Subscribers** (5 operations)
-   - Get, Create, Update, Delete, Get Many
+1. **Subscribers** (6 operations)
+   - Get, Create, Update, Delete, Search (with 16 filters), Get Many (deprecated)
    
-2. **Tags** (5 operations)
-   - Add to Subscriber, Remove from Subscriber, Create, Delete, Get Many
+2. **Tags** (7 operations)
+   - Add to Subscriber, Remove from Subscriber, Add Multiple Tags, Remove Multiple Tags, Create, Delete, Get Many
    - ⚠️ **No Update**: API doesn't support editing tags
+   - ✨ Multi-tag operations support up to 20 tags in a single request
    
 3. **Custom Fields** (2 operations)
    - Get Many, Set Field Value
@@ -152,21 +153,30 @@ This provides a better user experience by showing actual options instead of requ
 
 ## Recent Changes
 
-### October 24, 2025 - Final Release Preparation
+### October 25, 2025 - Version 0.2.0 Published to npm ✅
+- ✅ **Published to npm**: https://www.npmjs.com/package/n8n-nodes-nicochat
+- ✅ **New Search Operation**: Replaced "Get Many" with "Search Contacts" featuring 16 advanced filters:
+  - Basic filters: name, phone, email
+  - Channel filters: is_channel (WhatsApp/Instagram/Email/Telegram/SMS)
+  - Opt-in filters: is_opt_in_email, is_opt_in_sms
+  - Interaction filters: is_interacted_in_last_24h, is_bot_interacted_in_last_24h, is_last_message_in_last_24h
+  - Advanced filters: tag_ns, label_id, event_ns, user_field_ns, user_field_value
+  - Pagination: limit (1-100), page (1-1000)
+- ✅ **Multi-Tag Operations**: Added bulk tag management (up to 20 tags per request):
+  - Add Multiple Tags: Efficiently add multiple tags to a subscriber in one request
+  - Remove Multiple Tags: Efficiently remove multiple tags from a subscriber in one request
+- ✅ **Complete Portuguese Translation**: All operations, labels, and descriptions translated
+- ✅ **API Endpoint Corrections**: Fixed all routes with proper /api/subscriber/ and /api/flow/ prefixes
+- ✅ **Code Quality**: All lint errors fixed, n8n best practices compliance verified
+- ✅ **Architect Review**: Implementation reviewed and approved
+
+### October 24, 2025 - Version 0.1.7 Published
 - ✅ Fixed all linting errors for npm publication
 - ✅ Updated to official NicoChat icon (blue with white "N")
 - ✅ Added Icon type import for credentials
 - ✅ Fixed alphabetical ordering of all operation options
 - ✅ Removed unused error variable
 - ✅ Build: 0 errors, Lint: 0 errors
-- ✅ **READY FOR NPM PUBLICATION**
-
-### October 24, 2025 - Initial Implementation
-- ✅ Removed tag update operation (not supported by API)
-- ✅ Fixed node metadata to use correct package identifier
-- ✅ Created comprehensive README documentation
-- ✅ Verified all API endpoints are correctly mapped
-- ✅ Architect review completed - all issues resolved
 
 ### Initial Implementation
 - ✅ Set up Node.js 20 development environment

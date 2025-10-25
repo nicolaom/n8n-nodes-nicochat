@@ -427,14 +427,20 @@ export class NicoChat implements INodeType {
                                         {
                                                 name: 'Set Field Value',
                                                 value: 'setFieldValue',
-                                                description: 'Definir valor de campo personalizado',
+                                                description: 'Definir valor de um campo personalizado',
                                                 action: 'Definir valor do campo',
+                                        },
+                                        {
+                                                name: 'Set Multiple Fields',
+                                                value: 'setMultipleFields',
+                                                description: 'Definir valores de múltiplos campos (até 20)',
+                                                action: 'Set multiple fields',
                                         },
                                 ],
                                 default: 'getMany',
                         },
 
-                        // Custom Field: user_ns
+                        // Custom Field: user_ns (single field)
                         {
                                 displayName: 'User NS',
                                 name: 'userNs',
@@ -444,6 +450,22 @@ export class NicoChat implements INodeType {
                                         show: {
                                                 resource: ['customField'],
                                                 operation: ['setFieldValue'],
+                                        },
+                                },
+                                default: '',
+                                description: 'Identificador único do contato (user_ns)',
+                        },
+
+                        // Custom Field: user_ns (multiple fields)
+                        {
+                                displayName: 'User NS',
+                                name: 'userNs',
+                                type: 'string',
+                                required: true,
+                                displayOptions: {
+                                        show: {
+                                                resource: ['customField'],
+                                                operation: ['setMultipleFields'],
                                         },
                                 },
                                 default: '',
@@ -484,6 +506,51 @@ export class NicoChat implements INodeType {
                                 },
                                 default: '',
                                 description: 'Valor do campo personalizado',
+                        },
+
+                        // Custom Field: multiple fields
+                        {
+                                displayName: 'Fields',
+                                name: 'fieldsUi',
+                                type: 'fixedCollection',
+                                typeOptions: {
+                                        multipleValues: true,
+                                },
+                                required: true,
+                                displayOptions: {
+                                        show: {
+                                                resource: ['customField'],
+                                                operation: ['setMultipleFields'],
+                                        },
+                                },
+                                default: {},
+                                placeholder: 'Add Field',
+                                options: [
+                                        {
+                                                name: 'fieldValues',
+                                                displayName: 'Field',
+                                                values: [
+                                                        {
+                                                                displayName: 'Field Name or ID',
+                                                                name: 'fieldName',
+                                                                type: 'options',
+                                                                typeOptions: {
+                                                                        loadOptionsMethod: 'getCustomFields',
+                                                                },
+                                                                default: '',
+                                                                description:
+                                                                        'Choose from the list, or specify an ID using an <a href="https://docs.n8n.io/code/expressions/">expression</a>',
+                                                        },
+                                                        {
+                                                                displayName: 'Field Value',
+                                                                name: 'fieldValue',
+                                                                type: 'string',
+                                                                default: '',
+                                                                description: 'Valor do campo',
+                                                        },
+                                                ],
+                                        },
+                                ],
                         },
 
                         // ===============================
@@ -1139,6 +1206,38 @@ export class NicoChat implements INodeType {
                                                                                 user_ns: userNs,
                                                                                 var_ns: varNs,
                                                                                 value: fieldValue,
+                                                                        },
+                                                                        json: true,
+                                                                },
+                                                        );
+                                                returnData.push(responseData as IDataObject);
+                                        } else if (operation === 'setMultipleFields') {
+                                                const userNs = this.getNodeParameter(
+                                                        'userNs',
+                                                        i,
+                                                ) as string;
+                                                const fieldsUi = this.getNodeParameter(
+                                                        'fieldsUi',
+                                                        i,
+                                                ) as IDataObject;
+
+                                                const fields = (fieldsUi.fieldValues as IDataObject[]) || [];
+                                                
+                                                const data = fields.map((field) => ({
+                                                        var_ns: field.fieldName as string,
+                                                        value: field.fieldValue as string,
+                                                }));
+
+                                                const responseData =
+                                                        await this.helpers.httpRequestWithAuthentication.call(
+                                                                this,
+                                                                'nicoChatApi',
+                                                                {
+                                                                        method: 'PUT',
+                                                                        url: 'https://app.nicochat.com.br/api/subscriber/set-user-fields',
+                                                                        body: {
+                                                                                user_ns: userNs,
+                                                                                data,
                                                                         },
                                                                         json: true,
                                                                 },

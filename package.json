@@ -1,6 +1,6 @@
 {
         "name": "n8n-nodes-nicochat",
-        "version": "0.2.2",
+        "version": "0.3.0",
         "description": "n8n node para integração com a API do NicoChat",
         "license": "MIT",
         "homepage": "https://app.nicochat.com.br",
@@ -38,7 +38,8 @@
                         "dist/credentials/NicoChatApi.credentials.js"
                 ],
                 "nodes": [
-                        "dist/nodes/NicoChat/NicoChat.node.js"
+                        "dist/nodes/NicoChat/NicoChat.node.js",
+                        "dist/nodes/NicoChat/NicoChatTrigger.node.js"
                 ]
         },
         "devDependencies": {

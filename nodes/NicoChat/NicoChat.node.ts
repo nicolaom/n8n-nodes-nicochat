@@ -939,7 +939,7 @@ export class NicoChat implements INodeType {
 
                         // WhatsApp Template: template name
                         {
-                                displayName: 'Nome Do Template',
+                                displayName: 'Template Name or ID',
                                 name: 'templateName',
                                 type: 'options',
                                 typeOptions: {
@@ -953,7 +953,7 @@ export class NicoChat implements INodeType {
                                         },
                                 },
                                 default: '',
-                                description: 'Escolha da lista ou especifique um nome usando uma <a href="https://docs.n8n.io/code/expressions/">expressão</a>. Choose from the list, or specify a name using an <a href="https://docs.n8n.io/code/expressions/">expression</a>.',
+                                description: 'Choose from the list, or specify an ID using an <a href="https://docs.n8n.io/code/expressions/">expression</a>',
                         },
 
                         // WhatsApp Template: parameters (optional)

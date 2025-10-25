@@ -841,11 +841,12 @@ export class NicoChat implements INodeType {
                                         }
 
                                         for (const field of fields) {
-                                                const fieldName = field.name || field.field_name;
-                                                if (fieldName) {
+                                                const fieldName = (field.name || field.field_name) as string;
+                                                const fieldId = (field.var_ns || field.id || field._id) as string;
+                                                if (fieldName && fieldId) {
                                                         returnData.push({
-                                                                name: fieldName as string,
-                                                                value: fieldName as string,
+                                                                name: fieldName,
+                                                                value: fieldId,
                                                         });
                                                 }
                                         }
@@ -1118,7 +1119,7 @@ export class NicoChat implements INodeType {
                                                         'userNs',
                                                         i,
                                                 ) as string;
-                                                const fieldName = this.getNodeParameter(
+                                                const varNs = this.getNodeParameter(
                                                         'fieldName',
                                                         i,
                                                 ) as string;
@@ -1133,12 +1134,11 @@ export class NicoChat implements INodeType {
                                                                 'nicoChatApi',
                                                                 {
                                                                         method: 'PUT',
-                                                                        url: 'https://app.nicochat.com.br/api/subscriber/set-user-field-by-name',
+                                                                        url: 'https://app.nicochat.com.br/api/subscriber/set-user-field',
                                                                         body: {
                                                                                 user_ns: userNs,
-                                                                                field_name: fieldName,
-                                                                                field_value:
-                                                                                        fieldValue,
+                                                                                var_ns: varNs,
+                                                                                value: fieldValue,
                                                                         },
                                                                         json: true,
                                                                 },

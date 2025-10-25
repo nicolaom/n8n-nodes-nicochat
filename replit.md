@@ -4,7 +4,7 @@
 
 This is a custom n8n node for integrating with the NicoChat API (https://app.nicochat.com.br/api). The node provides comprehensive functionality for managing WhatsApp contacts, tags, custom fields, flows, broadcasts, templates, and conversation history.
 
-## Project Status: ✅ Published to npm (v0.2.1)
+## Project Status: ✅ Published to npm (v0.2.2)
 
 Last updated: October 25, 2025
 
@@ -152,6 +152,15 @@ This provides a better user experience by showing actual options instead of requ
 *No specific user preferences recorded yet*
 
 ## Recent Changes
+
+### October 25, 2025 - Version 0.2.2 Published to npm ✅
+- ✅ **Enhancement**: Added dynamic dropdown for WhatsApp templates selection
+- ✅ **Published to npm**: https://www.npmjs.com/package/n8n-nodes-nicochat
+- New Features:
+  - Created `getTemplates()` loadOptions method to fetch WhatsApp templates from API
+  - Modified `templateName` field to use dynamic dropdown instead of text input
+  - Users can now see all available templates with their languages (e.g., "welcome (pt_BR)")
+  - Follows same pattern as flows and custom fields dropdowns
 
 ### October 25, 2025 - Version 0.2.1 Published to npm ✅
 - ✅ **Fix**: Removed accents from operation names to fix n8n rendering issues

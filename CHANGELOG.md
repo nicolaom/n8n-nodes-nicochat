@@ -5,6 +5,19 @@ Todas as mudanças notáveis deste projeto serão documentadas neste arquivo.
 O formato é baseado em [Keep a Changelog](https://keepachangelog.com/pt-BR/1.0.0/),
 e este projeto adere ao [Versionamento Semântico](https://semver.org/lang/pt-BR/).
 
+## [0.3.2] - 2025-10-25
+
+### Adicionado
+- Badges no README (npm version, license, n8n community node)
+- Arquivo CONTRIBUTING.md com guia completo para contribuidores open-source
+- Arquivo GITHUB_SETUP.md com instruções detalhadas de publicação no GitHub
+- Arquivo .gitattributes para normalização de line endings
+- CHANGELOG.md completo com histórico de todas as versões
+
+### Melhorado
+- Documentação README com seção open-source destacada
+- Limpeza de arquivos temporários em attached_assets
+
 ## [0.3.1] - 2025-10-25
 
 ### Corrigido

@@ -130,6 +130,19 @@ Acesso ao histórico de conversas:
      - **Método**: POST
      - **Corpo**: JSON com os dados que você quer enviar
 
+#### Parâmetros Disponíveis:
+
+Igual ao webhook padrão do n8n:
+
+- **HTTP Method**: Método HTTP (POST, GET, PUT, DELETE, PATCH, HEAD)
+- **Path**: Caminho personalizado do webhook
+- **Authentication**: Autenticação (None)
+- **Respond**: Quando responder (Immediately, When Last Node Finishes, Using Respond to Webhook Node)
+- **Response Code**: Código de status HTTP (200, 201, 404, etc.)
+- **Response Data**: Tipo de dados na resposta (quando "When Last Node Finishes")
+- **Options**: 
+  - Response Headers: Adicionar cabeçalhos customizados na resposta
+
 #### O que o Trigger Recebe:
 
 O trigger recebe todos os dados enviados pelo NicoChat e disponibiliza em 3 campos:

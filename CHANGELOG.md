@@ -5,6 +5,23 @@ Todas as mudanças notáveis deste projeto serão documentadas neste arquivo.
 O formato é baseado em [Keep a Changelog](https://keepachangelog.com/pt-BR/1.0.0/),
 e este projeto adere ao [Versionamento Semântico](https://semver.org/lang/pt-BR/).
 
+## [0.4.0] - 2025-10-25
+
+### Adicionado
+- **Parâmetros completos do webhook** (iguais ao webhook padrão do n8n):
+  - HTTP Method (POST, GET, PUT, DELETE, PATCH, HEAD)
+  - Path customizável
+  - Authentication (None)
+  - Respond mode (Immediately, When Last Node Finishes, Using Respond to Webhook Node)
+  - Response Code (100-599)
+  - Response Data (All Entries, First Entry JSON, First Entry Binary, No Response Body)
+  - Response Headers customizados
+
+### Melhorado
+- Interface idêntica ao webhook nativo do n8n
+- Trigger muito mais flexível e configurável
+- Compatível com Test URL e Production URL
+
 ## [0.3.3] - 2025-10-25
 
 ### Mudado

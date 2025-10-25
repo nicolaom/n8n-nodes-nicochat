@@ -432,10 +432,10 @@ export class NicoChat implements INodeType {
                                                 action: 'Adicionar tag ao contato',
                                         },
                                         {
-                                                name: 'Adicionar Múltiplas Tags',
+                                                name: 'Adicionar Multiplas Tags',
                                                 value: 'addMultipleTags',
                                                 description: 'Adicionar múltiplas tags a um contato (até 20)',
-                                                action: 'Adicionar m ltiplas tags',
+                                                action: 'Adicionar multiplas tags',
                                         },
                                         {
                                                 name: 'Criar',
@@ -462,10 +462,10 @@ export class NicoChat implements INodeType {
                                                 action: 'Remover tag do contato',
                                         },
                                         {
-                                                name: 'Remover Múltiplas Tags',
+                                                name: 'Remover Multiplas Tags',
                                                 value: 'removeMultipleTags',
                                                 description: 'Remover múltiplas tags de um contato (até 20)',
-                                                action: 'Remover m ltiplas tags',
+                                                action: 'Remover multiplas tags',
                                         },
                                 ],
                                 default: 'addToSubscriber',
@@ -619,10 +619,10 @@ export class NicoChat implements INodeType {
                                 },
                                 options: [
                                         {
-                                                name: 'Definir Múltiplos Campos',
+                                                name: 'Definir Multiplos Campos',
                                                 value: 'setMultipleFields',
                                                 description: 'Definir valores de múltiplos campos (até 20)',
-                                                action: 'Definir m ltiplos campos',
+                                                action: 'Definir multiplos campos',
                                         },
                                         {
                                                 name: 'Definir Valor',
@@ -983,10 +983,10 @@ export class NicoChat implements INodeType {
                                 },
                                 options: [
                                         {
-                                                name: 'Obter Histórico',
+                                                name: 'Obter Historico',
                                                 value: 'getHistory',
                                                 description: 'Obter histórico de mensagens de uma conversa',
-                                                action: 'Obter hist rico',
+                                                action: 'Obter historico',
                                         },
                                 ],
                                 default: 'getHistory',

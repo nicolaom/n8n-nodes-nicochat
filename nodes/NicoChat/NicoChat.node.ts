@@ -795,12 +795,12 @@ export class NicoChat implements INodeType {
                                         }
 
                                         for (const flow of flows) {
-                                                const flowId = flow.sub_flow_ns;
-                                                const flowName = flow.name;
-                                                if (flowId) {
+                                                const flowId = (flow.sub_flow_ns || flow.flow_id || flow.id || flow._id) as string;
+                                                const flowName = (flow.name || flow.flow_name || flowId) as string;
+                                                if (flowId && flowName) {
                                                         returnData.push({
-                                                                name: flowName as string,
-                                                                value: flowId as string,
+                                                                name: flowName,
+                                                                value: flowId,
                                                         });
                                                 }
                                         }

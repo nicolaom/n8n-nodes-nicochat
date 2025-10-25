@@ -2,18 +2,16 @@
         "node": "n8n-nodes-nicochat.NicoChat",
         "nodeVersion": "1.0",
         "codexVersion": "1.0",
-        "categories": [
-                "Communication"
-        ],
+        "categories": ["Communication"],
         "resources": {
                 "credentialDocumentation": [
                         {
-                                "url": "https://app.nicochat.com.br/api"
+                                "url": "https://nicochat.atlassian.net/wiki/spaces/NicoChat/pages/57081869/API"
                         }
                 ],
                 "primaryDocumentation": [
                         {
-                                "url": "https://app.nicochat.com.br"
+                                "url": "https://app.nicochat.com.br/api"
                         }
                 ]
         }

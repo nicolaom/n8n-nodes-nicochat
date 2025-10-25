@@ -38,29 +38,30 @@ export class NicoChat implements INodeType {
                                 noDataExpression: true,
                                 options: [
                                         {
-                                                name: 'Broadcast',
-                                                value: 'broadcast',
-                                                description: 'Disparos em massa',
-                                        },
-                                        {
-                                                name: 'Conversation',
-                                                value: 'conversation',
-                                                description: 'Histórico de conversas',
-                                        },
-                                        {
-                                                name: 'Custom Field',
+                                                name: 'Campo Personalizado',
                                                 value: 'customField',
                                                 description: 'Operações com campos personalizados',
                                         },
                                         {
-                                                name: 'Flow',
+                                                name: 'Contato',
+                                                value: 'subscriber',
+                                                description:
+                                                        'Operações com os Contatos (bot users)',
+                                        },
+                                        {
+                                                name: 'Disparo',
+                                                value: 'broadcast',
+                                                description: 'Disparos em massa',
+                                        },
+                                        {
+                                                name: 'Fluxo',
                                                 value: 'flow',
                                                 description: 'Enviar fluxos para contatos',
                                         },
                                         {
-                                                name: 'Subscriber',
-                                                value: 'subscriber',
-                                                description: 'Operações com contatos (subscribers)',
+                                                name: 'LiveChat',
+                                                value: 'conversation',
+                                                description: 'Histórico de conversas',
                                         },
                                         {
                                                 name: 'Tag',
@@ -80,7 +81,7 @@ export class NicoChat implements INodeType {
                         // SUBSCRIBER OPERATIONS
                         // ===============================
                         {
-                                displayName: 'Operation',
+                                displayName: 'Operação',
                                 name: 'operation',
                                 type: 'options',
                                 noDataExpression: true,
@@ -91,34 +92,34 @@ export class NicoChat implements INodeType {
                                 },
                                 options: [
                                         {
-                                                name: 'Create',
+                                                name: 'Atualizar',
+                                                value: 'update',
+                                                description: 'Atualizar um contato',
+                                                action: 'Atualizar contato',
+                                        },
+                                        {
+                                                name: 'Criar',
                                                 value: 'create',
                                                 description: 'Criar um novo contato',
                                                 action: 'Criar contato',
                                         },
                                         {
-                                                name: 'Delete',
+                                                name: 'Deletar',
                                                 value: 'delete',
                                                 description: 'Deletar um contato',
                                                 action: 'Deletar contato',
                                         },
                                         {
-                                                name: 'Get',
+                                                name: 'Obter Por ID',
                                                 value: 'get',
                                                 description: 'Buscar um contato específico',
                                                 action: 'Buscar contato',
                                         },
                                         {
-                                                name: 'Get Many',
+                                                name: 'Obter Vários',
                                                 value: 'getMany',
                                                 description: 'Listar contatos',
                                                 action: 'Listar contatos',
-                                        },
-                                        {
-                                                name: 'Update',
-                                                value: 'update',
-                                                description: 'Atualizar um contato',
-                                                action: 'Atualizar contato',
                                         },
                                 ],
                                 default: 'create',
@@ -171,7 +172,7 @@ export class NicoChat implements INodeType {
                                 displayName: 'Email',
                                 name: 'email',
                                 type: 'string',
-                                                                                                                                                                                                                                                                placeholder: 'name@email.com',
+                                placeholder: 'name@email.com',
                                 displayOptions: {
                                         show: {
                                                 resource: ['subscriber'],
@@ -225,7 +226,7 @@ export class NicoChat implements INodeType {
                                                 displayName: 'Email',
                                                 name: 'email',
                                                 type: 'string',
-                                                                                                                                                                                                                                                                                                                                                                                                placeholder: 'name@email.com',
+                                                placeholder: 'name@email.com',
                                                 default: '',
                                         },
                                         {
@@ -332,7 +333,10 @@ export class NicoChat implements INodeType {
                                 displayOptions: {
                                         show: {
                                                 resource: ['tag'],
-                                                operation: ['addToSubscriber', 'removeFromSubscriber'],
+                                                operation: [
+                                                        'addToSubscriber',
+                                                        'removeFromSubscriber',
+                                                ],
                                         },
                                 },
                                 default: '',
@@ -348,7 +352,12 @@ export class NicoChat implements INodeType {
                                 displayOptions: {
                                         show: {
                                                 resource: ['tag'],
-                                                operation: ['addToSubscriber', 'removeFromSubscriber', 'create', 'delete'],
+                                                operation: [
+                                                        'addToSubscriber',
+                                                        'removeFromSubscriber',
+                                                        'create',
+                                                        'delete',
+                                                ],
                                         },
                                 },
                                 default: '',
@@ -373,10 +382,10 @@ export class NicoChat implements INodeType {
                                                 displayName: 'Limit',
                                                 name: 'limit',
                                                 type: 'number',
-                                                                                                                                                                                                                                                                                                                                                                                                typeOptions: {
-                                                                                                                                                                                                                                                                                                                                                                                                        minValue: 1,
-                                                                                                                                                                                                                                                                                                                                                                                                },
-                                                                                                                                                                                                                                                                                                                                                                                                description: 'Max number of results to return',
+                                                typeOptions: {
+                                                        minValue: 1,
+                                                },
+                                                description: 'Max number of results to return',
                                                 default: 50,
                                         },
                                         {
@@ -457,7 +466,8 @@ export class NicoChat implements INodeType {
                                         },
                                 },
                                 default: '',
-                                description: 'Choose from the list, or specify an ID using an <a href="https://docs.n8n.io/code/expressions/">expression</a>',
+                                description:
+                                        'Choose from the list, or specify an ID using an <a href="https://docs.n8n.io/code/expressions/">expression</a>',
                         },
 
                         // Custom Field: field value
@@ -538,7 +548,8 @@ export class NicoChat implements INodeType {
                                         },
                                 },
                                 default: '',
-                                description: 'Choose from the list, or specify an ID using an <a href="https://docs.n8n.io/code/expressions/">expression</a>',
+                                description:
+                                        'Choose from the list, or specify an ID using an <a href="https://docs.n8n.io/code/expressions/">expression</a>',
                         },
 
                         // ===============================
@@ -738,9 +749,9 @@ export class NicoChat implements INodeType {
                                 displayName: 'Limit',
                                 name: 'limit',
                                 type: 'number',
-                                                                                                                                                                                                                                                                typeOptions: {
-                                                                                                                                                                                                                                                                        minValue: 1,
-                                                                                                                                                                                                                                                                },
+                                typeOptions: {
+                                        minValue: 1,
+                                },
                                 displayOptions: {
                                         show: {
                                                 resource: ['conversation'],
@@ -755,30 +766,37 @@ export class NicoChat implements INodeType {
 
         methods = {
                 loadOptions: {
-                        async getFlows(this: ILoadOptionsFunctions): Promise<INodePropertyOptions[]> {
+                        async getFlows(
+                                this: ILoadOptionsFunctions,
+                        ): Promise<INodePropertyOptions[]> {
                                 const returnData: INodePropertyOptions[] = [];
                                 try {
-                                        const responseData = await this.helpers.httpRequestWithAuthentication.call(
-                                                this,
-                                                'nicoChatApi',
-                                                {
-                                                        method: 'GET',
-                                                        url: 'https://app.nicochat.com.br/api/flow/subflows',
-                                                        json: true,
-                                                },
-                                        );
+                                        const responseData =
+                                                await this.helpers.httpRequestWithAuthentication.call(
+                                                        this,
+                                                        'nicoChatApi',
+                                                        {
+                                                                method: 'GET',
+                                                                url: 'https://app.nicochat.com.br/api/flow/subflows',
+                                                                json: true,
+                                                        },
+                                                );
 
                                         let flows: IDataObject[] = [];
-                                        
+
                                         if (Array.isArray(responseData)) {
                                                 flows = responseData;
-                                        } else if ((responseData as IDataObject).data && Array.isArray((responseData as IDataObject).data)) {
-                                                flows = (responseData as IDataObject).data as IDataObject[];
+                                        } else if (
+                                                (responseData as IDataObject).data &&
+                                                Array.isArray((responseData as IDataObject).data)
+                                        ) {
+                                                flows = (responseData as IDataObject)
+                                                        .data as IDataObject[];
                                         }
 
                                         for (const flow of flows) {
-                                                const flowId = flow.flow_id || flow.id || flow._id;
-                                                const flowName = flow.name || flow.flow_name || 'Unnamed Flow';
+                                                const flowId = flow.sub_flow_ns;
+                                                const flowName = flow.name;
                                                 if (flowId) {
                                                         returnData.push({
                                                                 name: flowName as string,
@@ -794,25 +812,32 @@ export class NicoChat implements INodeType {
                                 }
                                 return returnData;
                         },
-                        async getCustomFields(this: ILoadOptionsFunctions): Promise<INodePropertyOptions[]> {
+                        async getCustomFields(
+                                this: ILoadOptionsFunctions,
+                        ): Promise<INodePropertyOptions[]> {
                                 const returnData: INodePropertyOptions[] = [];
                                 try {
-                                        const responseData = await this.helpers.httpRequestWithAuthentication.call(
-                                                this,
-                                                'nicoChatApi',
-                                                {
-                                                        method: 'GET',
-                                                        url: 'https://app.nicochat.com.br/api/flow/user-fields',
-                                                        json: true,
-                                                },
-                                        );
+                                        const responseData =
+                                                await this.helpers.httpRequestWithAuthentication.call(
+                                                        this,
+                                                        'nicoChatApi',
+                                                        {
+                                                                method: 'GET',
+                                                                url: 'https://app.nicochat.com.br/api/flow/user-fields',
+                                                                json: true,
+                                                        },
+                                                );
 
                                         let fields: IDataObject[] = [];
-                                        
+
                                         if (Array.isArray(responseData)) {
                                                 fields = responseData;
-                                        } else if ((responseData as IDataObject).data && Array.isArray((responseData as IDataObject).data)) {
-                                                fields = (responseData as IDataObject).data as IDataObject[];
+                                        } else if (
+                                                (responseData as IDataObject).data &&
+                                                Array.isArray((responseData as IDataObject).data)
+                                        ) {
+                                                fields = (responseData as IDataObject)
+                                                        .data as IDataObject[];
                                         }
 
                                         for (const field of fields) {
@@ -845,10 +870,22 @@ export class NicoChat implements INodeType {
                         try {
                                 if (resource === 'subscriber') {
                                         if (operation === 'create') {
-                                                const firstName = this.getNodeParameter('firstName', i) as string;
-                                                const lastName = this.getNodeParameter('lastName', i) as string;
-                                                const email = this.getNodeParameter('email', i) as string;
-                                                const phone = this.getNodeParameter('phone', i) as string;
+                                                const firstName = this.getNodeParameter(
+                                                        'firstName',
+                                                        i,
+                                                ) as string;
+                                                const lastName = this.getNodeParameter(
+                                                        'lastName',
+                                                        i,
+                                                ) as string;
+                                                const email = this.getNodeParameter(
+                                                        'email',
+                                                        i,
+                                                ) as string;
+                                                const phone = this.getNodeParameter(
+                                                        'phone',
+                                                        i,
+                                                ) as string;
 
                                                 const body: IDataObject = {};
                                                 if (firstName) body.first_name = firstName;
@@ -856,257 +893,368 @@ export class NicoChat implements INodeType {
                                                 if (email) body.email = email;
                                                 if (phone) body.phone = phone;
 
-                                                const responseData = await this.helpers.httpRequestWithAuthentication.call(
-                                                        this,
-                                                        'nicoChatApi',
-                                                        {
-                                                                method: 'POST',
-                                                                url: 'https://app.nicochat.com.br/api/subscriber/create',
-                                                                body,
-                                                                json: true,
-                                                        },
-                                                );
+                                                const responseData =
+                                                        await this.helpers.httpRequestWithAuthentication.call(
+                                                                this,
+                                                                'nicoChatApi',
+                                                                {
+                                                                        method: 'POST',
+                                                                        url: 'https://app.nicochat.com.br/api/subscriber/create',
+                                                                        body,
+                                                                        json: true,
+                                                                },
+                                                        );
                                                 returnData.push(responseData as IDataObject);
                                         } else if (operation === 'get') {
-                                                const userNs = this.getNodeParameter('userNs', i) as string;
+                                                const userNs = this.getNodeParameter(
+                                                        'userNs',
+                                                        i,
+                                                ) as string;
 
-                                                const responseData = await this.helpers.httpRequestWithAuthentication.call(
-                                                        this,
-                                                        'nicoChatApi',
-                                                        {
-                                                                method: 'GET',
-                                                                url: 'https://app.nicochat.com.br/api/subscriber/get-info',
-                                                                qs: { user_ns: userNs },
-                                                                json: true,
-                                                        },
-                                                );
+                                                const responseData =
+                                                        await this.helpers.httpRequestWithAuthentication.call(
+                                                                this,
+                                                                'nicoChatApi',
+                                                                {
+                                                                        method: 'GET',
+                                                                        url: 'https://app.nicochat.com.br/api/subscriber/get-info',
+                                                                        qs: { user_ns: userNs },
+                                                                        json: true,
+                                                                },
+                                                        );
                                                 returnData.push(responseData as IDataObject);
                                         } else if (operation === 'getMany') {
-                                                const options = this.getNodeParameter('options', i) as IDataObject;
+                                                const options = this.getNodeParameter(
+                                                        'options',
+                                                        i,
+                                                ) as IDataObject;
 
                                                 const qs: IDataObject = {};
                                                 if (options.limit) qs.limit = options.limit;
                                                 if (options.page) qs.page = options.page;
 
-                                                const responseData = await this.helpers.httpRequestWithAuthentication.call(
-                                                        this,
-                                                        'nicoChatApi',
-                                                        {
-                                                                method: 'GET',
-                                                                url: 'https://app.nicochat.com.br/api/subscribers',
-                                                                qs,
-                                                                json: true,
-                                                        },
-                                                );
+                                                const responseData =
+                                                        await this.helpers.httpRequestWithAuthentication.call(
+                                                                this,
+                                                                'nicoChatApi',
+                                                                {
+                                                                        method: 'GET',
+                                                                        url: 'https://app.nicochat.com.br/api/subscribers',
+                                                                        qs,
+                                                                        json: true,
+                                                                },
+                                                        );
                                                 returnData.push(responseData as IDataObject);
                                         } else if (operation === 'update') {
-                                                const userNs = this.getNodeParameter('userNs', i) as string;
-                                                const updateFields = this.getNodeParameter('updateFields', i) as IDataObject;
+                                                const userNs = this.getNodeParameter(
+                                                        'userNs',
+                                                        i,
+                                                ) as string;
+                                                const updateFields = this.getNodeParameter(
+                                                        'updateFields',
+                                                        i,
+                                                ) as IDataObject;
 
                                                 const body: IDataObject = { user_ns: userNs };
                                                 Object.assign(body, updateFields);
 
-                                                const responseData = await this.helpers.httpRequestWithAuthentication.call(
-                                                        this,
-                                                        'nicoChatApi',
-                                                        {
-                                                                method: 'PUT',
-                                                                url: 'https://app.nicochat.com.br/api/subscriber/update',
-                                                                body,
-                                                                json: true,
-                                                        },
-                                                );
+                                                const responseData =
+                                                        await this.helpers.httpRequestWithAuthentication.call(
+                                                                this,
+                                                                'nicoChatApi',
+                                                                {
+                                                                        method: 'PUT',
+                                                                        url: 'https://app.nicochat.com.br/api/subscriber/update',
+                                                                        body,
+                                                                        json: true,
+                                                                },
+                                                        );
                                                 returnData.push(responseData as IDataObject);
                                         } else if (operation === 'delete') {
-                                                const userNs = this.getNodeParameter('userNs', i) as string;
+                                                const userNs = this.getNodeParameter(
+                                                        'userNs',
+                                                        i,
+                                                ) as string;
 
-                                                const responseData = await this.helpers.httpRequestWithAuthentication.call(
-                                                        this,
-                                                        'nicoChatApi',
-                                                        {
-                                                                method: 'DELETE',
-                                                                url: 'https://app.nicochat.com.br/api/subscriber/delete',
-                                                                body: { user_ns: userNs },
-                                                                json: true,
-                                                        },
-                                                );
+                                                const responseData =
+                                                        await this.helpers.httpRequestWithAuthentication.call(
+                                                                this,
+                                                                'nicoChatApi',
+                                                                {
+                                                                        method: 'DELETE',
+                                                                        url: 'https://app.nicochat.com.br/api/subscriber/delete',
+                                                                        body: { user_ns: userNs },
+                                                                        json: true,
+                                                                },
+                                                        );
                                                 returnData.push(responseData as IDataObject);
                                         }
                                 } else if (resource === 'tag') {
                                         if (operation === 'addToSubscriber') {
-                                                const userNs = this.getNodeParameter('userNs', i) as string;
-                                                const tagName = this.getNodeParameter('tagName', i) as string;
+                                                const userNs = this.getNodeParameter(
+                                                        'userNs',
+                                                        i,
+                                                ) as string;
+                                                const tagName = this.getNodeParameter(
+                                                        'tagName',
+                                                        i,
+                                                ) as string;
 
-                                                const responseData = await this.helpers.httpRequestWithAuthentication.call(
-                                                        this,
-                                                        'nicoChatApi',
-                                                        {
-                                                                method: 'POST',
-                                                                url: 'https://app.nicochat.com.br/api/subscriber/add-tag-by-name',
-                                                                body: { user_ns: userNs, name: tagName },
-                                                                json: true,
-                                                        },
-                                                );
+                                                const responseData =
+                                                        await this.helpers.httpRequestWithAuthentication.call(
+                                                                this,
+                                                                'nicoChatApi',
+                                                                {
+                                                                        method: 'POST',
+                                                                        url: 'https://app.nicochat.com.br/api/subscriber/add-tag-by-name',
+                                                                        body: {
+                                                                                user_ns: userNs,
+                                                                                name: tagName,
+                                                                        },
+                                                                        json: true,
+                                                                },
+                                                        );
                                                 returnData.push(responseData as IDataObject);
                                         } else if (operation === 'removeFromSubscriber') {
-                                                const userNs = this.getNodeParameter('userNs', i) as string;
-                                                const tagName = this.getNodeParameter('tagName', i) as string;
+                                                const userNs = this.getNodeParameter(
+                                                        'userNs',
+                                                        i,
+                                                ) as string;
+                                                const tagName = this.getNodeParameter(
+                                                        'tagName',
+                                                        i,
+                                                ) as string;
 
-                                                const responseData = await this.helpers.httpRequestWithAuthentication.call(
-                                                        this,
-                                                        'nicoChatApi',
-                                                        {
-                                                                method: 'DELETE',
-                                                                url: 'https://app.nicochat.com.br/api/subscriber/remove-tag-by-name',
-                                                                body: { user_ns: userNs, name: tagName },
-                                                                json: true,
-                                                        },
-                                                );
+                                                const responseData =
+                                                        await this.helpers.httpRequestWithAuthentication.call(
+                                                                this,
+                                                                'nicoChatApi',
+                                                                {
+                                                                        method: 'DELETE',
+                                                                        url: 'https://app.nicochat.com.br/api/subscriber/remove-tag-by-name',
+                                                                        body: {
+                                                                                user_ns: userNs,
+                                                                                name: tagName,
+                                                                        },
+                                                                        json: true,
+                                                                },
+                                                        );
                                                 returnData.push(responseData as IDataObject);
                                         } else if (operation === 'create') {
-                                                const tagName = this.getNodeParameter('tagName', i) as string;
+                                                const tagName = this.getNodeParameter(
+                                                        'tagName',
+                                                        i,
+                                                ) as string;
 
-                                                const responseData = await this.helpers.httpRequestWithAuthentication.call(
-                                                        this,
-                                                        'nicoChatApi',
-                                                        {
-                                                                method: 'POST',
-                                                                url: 'https://app.nicochat.com.br/api/flow/create-tag',
-                                                                body: { name: tagName },
-                                                                json: true,
-                                                        },
-                                                );
+                                                const responseData =
+                                                        await this.helpers.httpRequestWithAuthentication.call(
+                                                                this,
+                                                                'nicoChatApi',
+                                                                {
+                                                                        method: 'POST',
+                                                                        url: 'https://app.nicochat.com.br/api/flow/create-tag',
+                                                                        body: { name: tagName },
+                                                                        json: true,
+                                                                },
+                                                        );
                                                 returnData.push(responseData as IDataObject);
                                         } else if (operation === 'delete') {
-                                                const tagName = this.getNodeParameter('tagName', i) as string;
+                                                const tagName = this.getNodeParameter(
+                                                        'tagName',
+                                                        i,
+                                                ) as string;
 
-                                                const responseData = await this.helpers.httpRequestWithAuthentication.call(
-                                                        this,
-                                                        'nicoChatApi',
-                                                        {
-                                                                method: 'DELETE',
-                                                                url: 'https://app.nicochat.com.br/api/flow/delete-tag-by-name',
-                                                                body: { name: tagName },
-                                                                json: true,
-                                                        },
-                                                );
+                                                const responseData =
+                                                        await this.helpers.httpRequestWithAuthentication.call(
+                                                                this,
+                                                                'nicoChatApi',
+                                                                {
+                                                                        method: 'DELETE',
+                                                                        url: 'https://app.nicochat.com.br/api/flow/delete-tag-by-name',
+                                                                        body: { name: tagName },
+                                                                        json: true,
+                                                                },
+                                                        );
                                                 returnData.push(responseData as IDataObject);
                                         } else if (operation === 'getMany') {
-                                                const options = this.getNodeParameter('options', i) as IDataObject;
+                                                const options = this.getNodeParameter(
+                                                        'options',
+                                                        i,
+                                                ) as IDataObject;
 
                                                 const qs: IDataObject = {};
                                                 if (options.limit) qs.limit = options.limit;
                                                 if (options.page) qs.page = options.page;
                                                 if (options.name) qs.name = options.name;
 
-                                                const responseData = await this.helpers.httpRequestWithAuthentication.call(
-                                                        this,
-                                                        'nicoChatApi',
-                                                        {
-                                                                method: 'GET',
-                                                                url: 'https://app.nicochat.com.br/api/flow/tags',
-                                                                qs,
-                                                                json: true,
-                                                        },
-                                                );
+                                                const responseData =
+                                                        await this.helpers.httpRequestWithAuthentication.call(
+                                                                this,
+                                                                'nicoChatApi',
+                                                                {
+                                                                        method: 'GET',
+                                                                        url: 'https://app.nicochat.com.br/api/flow/tags',
+                                                                        qs,
+                                                                        json: true,
+                                                                },
+                                                        );
                                                 returnData.push(responseData as IDataObject);
                                         }
                                 } else if (resource === 'customField') {
                                         if (operation === 'getMany') {
-                                                const responseData = await this.helpers.httpRequestWithAuthentication.call(
-                                                        this,
-                                                        'nicoChatApi',
-                                                        {
-                                                                method: 'GET',
-                                                                url: 'https://app.nicochat.com.br/api/flow/user-fields',
-                                                                json: true,
-                                                        },
-                                                );
+                                                const responseData =
+                                                        await this.helpers.httpRequestWithAuthentication.call(
+                                                                this,
+                                                                'nicoChatApi',
+                                                                {
+                                                                        method: 'GET',
+                                                                        url: 'https://app.nicochat.com.br/api/flow/user-fields',
+                                                                        json: true,
+                                                                },
+                                                        );
                                                 returnData.push(responseData as IDataObject);
                                         } else if (operation === 'setFieldValue') {
-                                                const userNs = this.getNodeParameter('userNs', i) as string;
-                                                const fieldName = this.getNodeParameter('fieldName', i) as string;
-                                                const fieldValue = this.getNodeParameter('fieldValue', i) as string;
+                                                const userNs = this.getNodeParameter(
+                                                        'userNs',
+                                                        i,
+                                                ) as string;
+                                                const fieldName = this.getNodeParameter(
+                                                        'fieldName',
+                                                        i,
+                                                ) as string;
+                                                const fieldValue = this.getNodeParameter(
+                                                        'fieldValue',
+                                                        i,
+                                                ) as string;
 
-                                                const responseData = await this.helpers.httpRequestWithAuthentication.call(
-                                                        this,
-                                                        'nicoChatApi',
-                                                        {
-                                                                method: 'PUT',
-                                                                url: 'https://app.nicochat.com.br/api/subscriber/set-user-field-by-name',
-                                                                body: { user_ns: userNs, field_name: fieldName, field_value: fieldValue },
-                                                                json: true,
-                                                        },
-                                                );
+                                                const responseData =
+                                                        await this.helpers.httpRequestWithAuthentication.call(
+                                                                this,
+                                                                'nicoChatApi',
+                                                                {
+                                                                        method: 'PUT',
+                                                                        url: 'https://app.nicochat.com.br/api/subscriber/set-user-field-by-name',
+                                                                        body: {
+                                                                                user_ns: userNs,
+                                                                                field_name: fieldName,
+                                                                                field_value:
+                                                                                        fieldValue,
+                                                                        },
+                                                                        json: true,
+                                                                },
+                                                        );
                                                 returnData.push(responseData as IDataObject);
                                         }
                                 } else if (resource === 'flow') {
                                         if (operation === 'sendToSubscriber') {
-                                                const userNs = this.getNodeParameter('userNs', i) as string;
-                                                const flowId = this.getNodeParameter('flowName', i) as string;
+                                                const userNs = this.getNodeParameter(
+                                                        'userNs',
+                                                        i,
+                                                ) as string;
+                                                const flowId = this.getNodeParameter(
+                                                        'flowName',
+                                                        i,
+                                                ) as string;
 
-                                                const responseData = await this.helpers.httpRequestWithAuthentication.call(
-                                                        this,
-                                                        'nicoChatApi',
-                                                        {
-                                                                method: 'POST',
-                                                                url: 'https://app.nicochat.com.br/api/subscriber/send-sub-flow',
-                                                                body: { user_ns: userNs, flow_id: flowId },
-                                                                json: true,
-                                                        },
-                                                );
+                                                const responseData =
+                                                        await this.helpers.httpRequestWithAuthentication.call(
+                                                                this,
+                                                                'nicoChatApi',
+                                                                {
+                                                                        method: 'POST',
+                                                                        url: 'https://app.nicochat.com.br/api/subscriber/send-sub-flow',
+                                                                        body: {
+                                                                                user_ns: userNs,
+                                                                                flow_id: flowId,
+                                                                        },
+                                                                        json: true,
+                                                                },
+                                                        );
                                                 returnData.push(responseData as IDataObject);
                                         } else if (operation === 'getMany') {
-                                                const responseData = await this.helpers.httpRequestWithAuthentication.call(
-                                                        this,
-                                                        'nicoChatApi',
-                                                        {
-                                                                method: 'GET',
-                                                                url: 'https://app.nicochat.com.br/api/flow/subflows',
-                                                                json: true,
-                                                        },
-                                                );
+                                                const responseData =
+                                                        await this.helpers.httpRequestWithAuthentication.call(
+                                                                this,
+                                                                'nicoChatApi',
+                                                                {
+                                                                        method: 'GET',
+                                                                        url: 'https://app.nicochat.com.br/api/flow/subflows',
+                                                                        json: true,
+                                                                },
+                                                        );
                                                 returnData.push(responseData as IDataObject);
                                         }
                                 } else if (resource === 'broadcast') {
                                         if (operation === 'send') {
-                                                const message = this.getNodeParameter('message', i) as string;
-                                                const userNsList = this.getNodeParameter('userNsList', i) as string;
+                                                const message = this.getNodeParameter(
+                                                        'message',
+                                                        i,
+                                                ) as string;
+                                                const userNsList = this.getNodeParameter(
+                                                        'userNsList',
+                                                        i,
+                                                ) as string;
 
-                                                const users = userNsList.split(',').map((u) => u.trim());
+                                                const users = userNsList
+                                                        .split(',')
+                                                        .map((u) => u.trim());
 
-                                                const responseData = await this.helpers.httpRequestWithAuthentication.call(
-                                                        this,
-                                                        'nicoChatApi',
-                                                        {
-                                                                method: 'POST',
-                                                                url: 'https://app.nicochat.com.br/api/subscriber/broadcast',
-                                                                body: { user_ns_list: users, content: message },
-                                                                json: true,
-                                                        },
-                                                );
+                                                const responseData =
+                                                        await this.helpers.httpRequestWithAuthentication.call(
+                                                                this,
+                                                                'nicoChatApi',
+                                                                {
+                                                                        method: 'POST',
+                                                                        url: 'https://app.nicochat.com.br/api/subscriber/broadcast',
+                                                                        body: {
+                                                                                user_ns_list: users,
+                                                                                content: message,
+                                                                        },
+                                                                        json: true,
+                                                                },
+                                                        );
                                                 returnData.push(responseData as IDataObject);
                                         } else if (operation === 'sendByTag') {
-                                                const message = this.getNodeParameter('message', i) as string;
-                                                const tagName = this.getNodeParameter('tagName', i) as string;
+                                                const message = this.getNodeParameter(
+                                                        'message',
+                                                        i,
+                                                ) as string;
+                                                const tagName = this.getNodeParameter(
+                                                        'tagName',
+                                                        i,
+                                                ) as string;
 
-                                                const responseData = await this.helpers.httpRequestWithAuthentication.call(
-                                                        this,
-                                                        'nicoChatApi',
-                                                        {
-                                                                method: 'POST',
-                                                                url: 'https://app.nicochat.com.br/api/subscriber/broadcast-by-tag',
-                                                                body: { tag_name: tagName, content: message },
-                                                                json: true,
-                                                        },
-                                                );
+                                                const responseData =
+                                                        await this.helpers.httpRequestWithAuthentication.call(
+                                                                this,
+                                                                'nicoChatApi',
+                                                                {
+                                                                        method: 'POST',
+                                                                        url: 'https://app.nicochat.com.br/api/subscriber/broadcast-by-tag',
+                                                                        body: {
+                                                                                tag_name: tagName,
+                                                                                content: message,
+                                                                        },
+                                                                        json: true,
+                                                                },
+                                                        );
                                                 returnData.push(responseData as IDataObject);
                                         }
                                 } else if (resource === 'whatsappTemplate') {
                                         if (operation === 'send') {
-                                                const userNs = this.getNodeParameter('userNs', i) as string;
-                                                const templateName = this.getNodeParameter('templateName', i) as string;
-                                                const templateParameters = this.getNodeParameter('templateParameters', i, '') as string;
+                                                const userNs = this.getNodeParameter(
+                                                        'userNs',
+                                                        i,
+                                                ) as string;
+                                                const templateName = this.getNodeParameter(
+                                                        'templateName',
+                                                        i,
+                                                ) as string;
+                                                const templateParameters = this.getNodeParameter(
+                                                        'templateParameters',
+                                                        i,
+                                                        '',
+                                                ) as string;
 
                                                 const body: IDataObject = {
                                                         user_ns: userNs,
@@ -1115,7 +1263,10 @@ export class NicoChat implements INodeType {
 
                                                 if (templateParameters) {
                                                         try {
-                                                                body.parameters = JSON.parse(templateParameters);
+                                                                body.parameters =
+                                                                        JSON.parse(
+                                                                                templateParameters,
+                                                                        );
                                                         } catch {
                                                                 throw new NodeOperationError(
                                                                         this.getNode(),
@@ -1124,33 +1275,44 @@ export class NicoChat implements INodeType {
                                                         }
                                                 }
 
-                                                const responseData = await this.helpers.httpRequestWithAuthentication.call(
-                                                        this,
-                                                        'nicoChatApi',
-                                                        {
-                                                                method: 'POST',
-                                                                url: 'https://app.nicochat.com.br/api/subscriber/send-whatsapp-template',
-                                                                body,
-                                                                json: true,
-                                                        },
-                                                );
+                                                const responseData =
+                                                        await this.helpers.httpRequestWithAuthentication.call(
+                                                                this,
+                                                                'nicoChatApi',
+                                                                {
+                                                                        method: 'POST',
+                                                                        url: 'https://app.nicochat.com.br/api/subscriber/send-whatsapp-template',
+                                                                        body,
+                                                                        json: true,
+                                                                },
+                                                        );
                                                 returnData.push(responseData as IDataObject);
                                         }
                                 } else if (resource === 'conversation') {
                                         if (operation === 'getHistory') {
-                                                const userNs = this.getNodeParameter('userNs', i) as string;
-                                                const limit = this.getNodeParameter('limit', i) as number;
+                                                const userNs = this.getNodeParameter(
+                                                        'userNs',
+                                                        i,
+                                                ) as string;
+                                                const limit = this.getNodeParameter(
+                                                        'limit',
+                                                        i,
+                                                ) as number;
 
-                                                const responseData = await this.helpers.httpRequestWithAuthentication.call(
-                                                        this,
-                                                        'nicoChatApi',
-                                                        {
-                                                                method: 'GET',
-                                                                url: 'https://app.nicochat.com.br/api/subscriber/chat-messages',
-                                                                qs: { user_ns: userNs, limit },
-                                                                json: true,
-                                                        },
-                                                );
+                                                const responseData =
+                                                        await this.helpers.httpRequestWithAuthentication.call(
+                                                                this,
+                                                                'nicoChatApi',
+                                                                {
+                                                                        method: 'GET',
+                                                                        url: 'https://app.nicochat.com.br/api/subscriber/chat-messages',
+                                                                        qs: {
+                                                                                user_ns: userNs,
+                                                                                limit,
+                                                                        },
+                                                                        json: true,
+                                                                },
+                                                        );
                                                 returnData.push(responseData as IDataObject);
                                         }
                                 }

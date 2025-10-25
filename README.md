@@ -39,7 +39,7 @@ npm link n8n-nodes-nicochat
 
 O node usa autenticação via API Key:
 
-1. Acesse [https://app.nicochat.com.br/api](https://app.nicochat.com.br/settings#/api) e obtenha sua chave de API
+1. Acesse https://app.nicochat.com.br/settings#/api e obtenha sua chave de API
 2. No n8n, crie uma nova credencial "NicoChat API"
 3. Insira sua API Key
 

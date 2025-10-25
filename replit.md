@@ -4,7 +4,7 @@
 
 This is a custom n8n node for integrating with the NicoChat API (https://app.nicochat.com.br/api). The node provides comprehensive functionality for managing WhatsApp contacts, tags, custom fields, flows, broadcasts, templates, and conversation history.
 
-## Project Status: ✅ Published to npm (v0.2.2)
+## Project Status: ✅ Published to npm (v0.3.0)
 
 Last updated: October 25, 2025
 
@@ -82,6 +82,12 @@ n8n-nodes-nicochat/
 7. **Conversation** (1 operation)
    - Get History (with date filters and pagination)
 
+8. **🆕 NicoChat Trigger** (webhook trigger)
+   - Webhook endpoint for receiving events from NicoChat
+   - Event filtering (message received, tag added, field updated, etc.)
+   - Customizable response to NicoChat
+   - No authentication required (webhook based)
+
 ### Dynamic Features
 
 The node implements **loadOptions** methods for dynamic dropdowns:
@@ -152,6 +158,21 @@ This provides a better user experience by showing actual options instead of requ
 *No specific user preferences recorded yet*
 
 ## Recent Changes
+
+### October 25, 2025 - Version 0.3.0 Published to npm ✅ 🎉
+- ✅ **Major Feature**: Added NicoChat Trigger (webhook trigger node)
+- ✅ **Published to npm**: https://www.npmjs.com/package/n8n-nodes-nicochat
+- New Trigger Features:
+  - **Webhook Endpoint**: Generates unique URL for NicoChat to call
+  - **Event Filtering**: Select which events trigger the workflow (message received, tag added, field updated, conversion, custom events)
+  - **Flexible Response**: Option to send custom JSON response back to NicoChat
+  - **Easy Setup**: Copy webhook URL from n8n → Paste in NicoChat "Ação > Ação Avançada > Requisição API"
+  - **Event-driven Automation**: Build workflows triggered by NicoChat events
+- Use Cases:
+  - "When user responds X" → Start workflow
+  - "When tag is added" → Execute action
+  - "When custom field changes" → Notify team
+  - "When conversion happens" → Update CRM
 
 ### October 25, 2025 - Version 0.2.2 Published to npm ✅
 - ✅ **Enhancement**: Added dynamic dropdown for WhatsApp templates selection

@@ -941,7 +941,10 @@ export class NicoChat implements INodeType {
                         {
                                 displayName: 'Nome Do Template',
                                 name: 'templateName',
-                                type: 'string',
+                                type: 'options',
+                                typeOptions: {
+                                        loadOptionsMethod: 'getTemplates',
+                                },
                                 required: true,
                                 displayOptions: {
                                         show: {
@@ -950,7 +953,7 @@ export class NicoChat implements INodeType {
                                         },
                                 },
                                 default: '',
-                                description: 'Nome do template aprovado no WhatsApp',
+                                description: 'Escolha da lista ou especifique um nome usando uma <a href="https://docs.n8n.io/code/expressions/">expressão</a>. Choose from the list, or specify a name using an <a href="https://docs.n8n.io/code/expressions/">expression</a>.',
                         },
 
                         // WhatsApp Template: parameters (optional)
@@ -1118,6 +1121,52 @@ export class NicoChat implements INodeType {
                                         throw new NodeOperationError(
                                                 this.getNode(),
                                                 `Erro ao carregar campos personalizados: ${error.message}`,
+                                        );
+                                }
+                                return returnData;
+                        },
+                        async getTemplates(
+                                this: ILoadOptionsFunctions,
+                        ): Promise<INodePropertyOptions[]> {
+                                const returnData: INodePropertyOptions[] = [];
+                                try {
+                                        const responseData =
+                                                await this.helpers.httpRequestWithAuthentication.call(
+                                                        this,
+                                                        'nicoChatApi',
+                                                        {
+                                                                method: 'POST',
+                                                                url: 'https://app.nicochat.com.br/api/whatsapp-template/list',
+                                                                json: true,
+                                                        },
+                                                );
+
+                                        let templates: IDataObject[] = [];
+
+                                        if (Array.isArray(responseData)) {
+                                                templates = responseData;
+                                        } else if (
+                                                (responseData as IDataObject).data &&
+                                                Array.isArray((responseData as IDataObject).data)
+                                        ) {
+                                                templates = (responseData as IDataObject)
+                                                        .data as IDataObject[];
+                                        }
+
+                                        for (const template of templates) {
+                                                const templateName = (template.name) as string;
+                                                const templateLanguage = (template.language || 'pt_BR') as string;
+                                                if (templateName) {
+                                                        returnData.push({
+                                                                name: `${templateName} (${templateLanguage})`,
+                                                                value: templateName,
+                                                        });
+                                                }
+                                        }
+                                } catch (error) {
+                                        throw new NodeOperationError(
+                                                this.getNode(),
+                                                `Erro ao carregar templates WhatsApp: ${error.message}`,
                                         );
                                 }
                                 return returnData;

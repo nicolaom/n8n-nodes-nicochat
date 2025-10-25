@@ -4,7 +4,7 @@
 
 This is a custom n8n node for integrating with the NicoChat API (https://app.nicochat.com.br/api). The node provides comprehensive functionality for managing WhatsApp contacts, tags, custom fields, flows, broadcasts, templates, and conversation history.
 
-## Project Status: ✅ Published to npm (v0.2.0)
+## Project Status: ✅ Published to npm (v0.2.1)
 
 Last updated: October 25, 2025
 
@@ -153,7 +153,16 @@ This provides a better user experience by showing actual options instead of requ
 
 ## Recent Changes
 
-### October 25, 2025 - Version 0.2.0 Published to npm ✅
+### October 25, 2025 - Version 0.2.1 Published to npm ✅
+- ✅ **Fix**: Removed accents from operation names to fix n8n rendering issues
+- ✅ **Published to npm**: https://www.npmjs.com/package/n8n-nodes-nicochat
+- Changed operation names (descriptions kept in Portuguese):
+  - "Adicionar Múltiplas Tags" → "Adicionar Multiplas Tags"
+  - "Remover Múltiplas Tags" → "Remover Multiplas Tags"
+  - "Definir Múltiplos Campos" → "Definir Multiplos Campos"
+  - "Obter Histórico" → "Obter Historico"
+
+### October 25, 2025 - Version 0.2.0 Published to npm
 - ✅ **Published to npm**: https://www.npmjs.com/package/n8n-nodes-nicochat
 - ✅ **New Search Operation**: Replaced "Get Many" with "Search Contacts" featuring 16 advanced filters:
   - Basic filters: name, phone, email

@@ -1586,7 +1586,7 @@ export class NicoChat implements INodeType {
                                                                         url: 'https://app.nicochat.com.br/api/subscriber/send-sub-flow',
                                                                         body: {
                                                                                 user_ns: userNs,
-                                                                                flow_id: flowId,
+                                                                                sub_flow_ns: flowId,
                                                                         },
                                                                         json: true,
                                                                 },

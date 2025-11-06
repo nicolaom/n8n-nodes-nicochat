@@ -5,6 +5,13 @@ Todas as mudanças notáveis deste projeto serão documentadas neste arquivo.
 O formato é baseado em [Keep a Changelog](https://keepachangelog.com/pt-BR/1.0.0/),
 e este projeto adere ao [Versionamento Semântico](https://semver.org/lang/pt-BR/).
 
+## [0.4.1] - 2025-11-06
+
+### Corrigido
+- **BUGFIX CRÍTICO**: Corrigido parâmetro de envio de fluxo para contato
+- Alterado de `flow_id` para `sub_flow_ns` conforme documentação da API
+- Endpoint: POST /subscriber/send-sub-flow agora funciona corretamente
+
 ## [0.4.0] - 2025-10-25
 
 ### Adicionado

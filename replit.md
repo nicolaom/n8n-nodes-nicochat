@@ -4,7 +4,7 @@
 
 This is a custom n8n node for integrating with the NicoChat API (https://app.nicochat.com.br/api). The node provides comprehensive functionality for managing WhatsApp contacts, tags, custom fields, flows, broadcasts, templates, and conversation history.
 
-## Project Status: ✅ Published to npm (v0.4.0)
+## Project Status: ✅ Código corrigido (v0.4.1 - aguardando publicação)
 
 Last updated: October 25, 2025
 
@@ -160,6 +160,12 @@ This provides a better user experience by showing actual options instead of requ
 *No specific user preferences recorded yet*
 
 ## Recent Changes
+
+### November 6, 2025 - Version 0.4.1 Código Corrigido ✅
+- ✅ **BUGFIX CRÍTICO**: Corrigido parâmetro de envio de fluxo para contato
+- Alterado de `flow_id` para `sub_flow_ns` conforme documentação da API
+- Operação "Send to Subscriber" do recurso Flow agora funciona corretamente
+- **Status**: Aguardando login npm para publicação
 
 ### October 25, 2025 - Version 0.4.0 Published to npm ✅
 - ✅ **Published to npm**: https://www.npmjs.com/package/n8n-nodes-nicochat
